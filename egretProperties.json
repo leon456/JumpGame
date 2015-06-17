@@ -1,0 +1,23 @@
+{
+	"document_class": "game.jumper.Bootstrap",
+	"modules": [
+		{
+			"name": "core"
+		},
+		{
+		  	"name": "version_old"
+		},
+		{
+			"name": "res"
+		},
+		{
+			"name": "physics",
+			"path": "../egret-game-library/physics/libsrc/physics"
+		}
+	],
+	"native": {
+		"path_ignore": [
+		]
+	},
+	"egret_version": "1.7.3"
+}
