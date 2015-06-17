@@ -40,6 +40,10 @@ module game.jumper{
         private run( dt ):void{
 
             this._pw.step( this.WORLD_STEP_DT );
+            
+            this.system.emitterX  = this._pbPlayer.displays[0].x; 
+            this.system.emitterY  = this._pbPlayer.displays[0].y;  
+            this.system.start(); 
 
             /// 玩家
            city.phys.P2Space.syncDisplay( this._pbPlayer );
@@ -77,6 +81,7 @@ module game.jumper{
         private _txTouchStatus:city.disp.TxButtonHasId;
         private score: egret.TextField;
         private scoreNum: number = 0;
+        private system: particle.ParticleSystem;
 
         private _p2FloatingLimitLeft:number;
         private _p2FloatingLimitRight:number;
@@ -89,6 +94,7 @@ module game.jumper{
                         this._pbPlayer.fixedRotation = false;
                         this._pbPlayer.velocity[1] = 1;
                         this._pbPlayer.velocity[0] = (this.PLAYER_VX + 10 ) * this.leftOrRight ;
+                        
                         break; 
                     case 2: //left
                         this.scoreNum++;
@@ -97,6 +103,8 @@ module game.jumper{
                         this._pbPlayer.velocity[1] = this.PLAYER_VY + 1;
                         this._pbPlayer.velocity[0] = this.PLAYER_VX * this.leftOrRight ;
                         this._pbPlayer.displays[0].scaleX = this.leftOrRight ;
+                    
+                        
                         break;
                     case 3: //right
                         this.scoreNum++;
@@ -105,6 +113,7 @@ module game.jumper{
                         this._pbPlayer.velocity[1] = this.PLAYER_VY + 1;
                         this._pbPlayer.velocity[0] = this.PLAYER_VX * this.leftOrRight ;
                         this._pbPlayer.displays[0].scaleX = this.leftOrRight ;
+                    
                     
                         break;
                     case 4:
@@ -119,6 +128,8 @@ module game.jumper{
         }
             
         private endContactHandler( event: any ): void {
+            //this.removeChild(this.system);
+            this.system.stop(); 
             //console.log("endContactHandler", event.bodyA, event.bodyB, event.shapeA, event.shapeB,"contactEquations:"+ event.contactEquations );
         }
 
@@ -264,12 +275,23 @@ module game.jumper{
 
 
         public launch( container:egret.DisplayObjectContainer ):void{
+            var texture = RES.getRes("newParticle_png");
+            var config = RES.getRes("newParticle_json");
+            this.system = new particle.GravityParticleSystem(texture, config);
+            container.addChildAt(this.system ,0);
+            
 
             this.score = new egret.TextField();
             this.score.text = "0"
             this.score.x = 240;
             this.score.y = 300;
             container.addChild(this.score);
+            
+            var uiStage:egret.gui.UIStage = new egret.gui.UIStage();
+            container.addChild( uiStage );
+            
+            uiStage.addElement( new live.Menu() );
+                   
             
             container.addChild( this );
             city.key.KeyManager.init( );

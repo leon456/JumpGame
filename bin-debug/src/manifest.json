@@ -5,10 +5,12 @@
 	"city\\assets\\StrongAssets.ts",
 	"city\\disp\\ButtonHasId.ts",
 	"city\\disp\\TxButtonHasId.ts",
+	"game\\jumper\\MenuSkin.exml",
 	"LoadingUI.ts",
 	"city\\key\\KeyManager.ts",
 	"city\\phys\\P2Space.ts",
 	"city\\utils\\DispUtil.ts",
+	"game\\jumper\\Menu.ts",
 	"city\\disp\\LoadingUI.ts",
 	"game\\jumper\\GameCore.ts",
 	"game\\jumper\\Bootstrap.ts"

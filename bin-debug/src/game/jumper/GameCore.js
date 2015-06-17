@@ -38,6 +38,9 @@ var game;
             };
             __egretProto__.run = function (dt) {
                 this._pw.step(this.WORLD_STEP_DT);
+                this.system.emitterX = this._pbPlayer.displays[0].x;
+                this.system.emitterY = this._pbPlayer.displays[0].y;
+                this.system.start();
                 /// 玩家
                 city.phys.P2Space.syncDisplay(this._pbPlayer);
                 /// 浮动板
@@ -96,6 +99,8 @@ var game;
                 //console.log("endContactHandler", event.bodyA, event.bodyB, event.shapeA, event.shapeB,"contactEquations:"+ event.contactEquations ); 
             };
             __egretProto__.endContactHandler = function (event) {
+                //this.removeChild(this.system);
+                this.system.stop();
                 //console.log("endContactHandler", event.bodyA, event.bodyB, event.shapeA, event.shapeB,"contactEquations:"+ event.contactEquations );
             };
             __egretProto__.createWorldSystem = function () {
@@ -191,11 +196,18 @@ var game;
                 return p2body;
             };
             __egretProto__.launch = function (container) {
+                var texture = RES.getRes("newParticle_png");
+                var config = RES.getRes("newParticle_json");
+                this.system = new particle.GravityParticleSystem(texture, config);
+                container.addChildAt(this.system, 0);
                 this.score = new egret.TextField();
                 this.score.text = "0";
                 this.score.x = 240;
                 this.score.y = 300;
                 container.addChild(this.score);
+                var uiStage = new egret.gui.UIStage();
+                container.addChild(uiStage);
+                uiStage.addElement(new live.Menu());
                 container.addChild(this);
                 city.key.KeyManager.init();
                 this.initDebug();

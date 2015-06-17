@@ -5,10 +5,12 @@ var game_file_list = [
 	"city/assets/StrongAssets.js",
 	"city/disp/ButtonHasId.js",
 	"city/disp/TxButtonHasId.js",
+	"game/jumper/MenuSkin.js",
 	"LoadingUI.js",
 	"city/key/KeyManager.js",
 	"city/phys/P2Space.js",
 	"city/utils/DispUtil.js",
+	"game/jumper/Menu.js",
 	"city/disp/LoadingUI.js",
 	"game/jumper/GameCore.js",
 	"game/jumper/Bootstrap.js"

@@ -1583,6 +1583,27 @@
 			"D:/Program Files/Egret/EgretEngine/win/egret/src/extension/gui/managers/impl/PopUpManagerImpl.ts",
 			"D:/Program Files/Egret/EgretEngine/win/egret/src/extension/gui/core/IVisualElement.ts",
 			"D:/Program Files/Egret/EgretEngine/win/egret/src/extension/gui/events/PopUpEvent.ts"
+		],
+		"C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/Particle.ts": [],
+		"C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/ParticleSystem.ts": [
+			"D:/Program Files/Egret/EgretEngine/win/egret/src/egret/display/DisplayObject.ts",
+			"D:/Program Files/Egret/EgretEngine/win/egret/src/egret/display/Texture.ts",
+			"D:/Program Files/Egret/EgretEngine/win/egret/src/egret/context/Ticker.ts",
+			"D:/Program Files/Egret/EgretEngine/win/egret/src/egret/events/Event.ts",
+			"D:/Program Files/Egret/EgretEngine/win/egret/src/egret/geom/Matrix.ts",
+			"D:/Program Files/Egret/EgretEngine/win/egret/src/egret/context/renderer/RendererContext.ts",
+			"D:/Program Files/Egret/EgretEngine/win/egret/src/egret/context/renderer/RenderFilter.ts",
+			"D:/Program Files/Egret/EgretEngine/win/egret/src/egret/display/BlendMode.ts",
+			"C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/Particle.ts"
+		],
+		"C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/GravityParticle.ts": [
+			"C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/Particle.ts"
+		],
+		"C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/GravityParticleSystem.ts": [
+			"D:/Program Files/Egret/EgretEngine/win/egret/src/egret/display/Texture.ts",
+			"C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/ParticleSystem.ts",
+			"C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/GravityParticle.ts",
+			"C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/Particle.ts"
 		]
 	},
 	"classNameToPath": {
@@ -1986,6 +2007,10 @@
 		"egret.gui.UIStage": "D:/Program Files/Egret/EgretEngine/win/egret/src/extension/gui/core/UIStage.ts",
 		"egret.gui.PopUpManagerImpl": "D:/Program Files/Egret/EgretEngine/win/egret/src/extension/gui/managers/impl/PopUpManagerImpl.ts",
 		"egret.gui.PopUpData": "D:/Program Files/Egret/EgretEngine/win/egret/src/extension/gui/managers/impl/PopUpManagerImpl.ts",
-		"egret.gui.PopUpManager": "D:/Program Files/Egret/EgretEngine/win/egret/src/extension/gui/managers/PopUpManager.ts"
+		"egret.gui.PopUpManager": "D:/Program Files/Egret/EgretEngine/win/egret/src/extension/gui/managers/PopUpManager.ts",
+		"particle.Particle": "C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/Particle.ts",
+		"particle.ParticleSystem": "C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/ParticleSystem.ts",
+		"particle.GravityParticle": "C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/GravityParticle.ts",
+		"particle.GravityParticleSystem": "C:/Users/leon.liu/Documents/EgretProjects/egret-game-library/particle/libsrc/particle/GravityParticleSystem.ts"
 	}
 }

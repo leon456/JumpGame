@@ -1,7 +1,7 @@
 {
 	"groups":[
 	{
-		"keys":"rects,kuchipatchi1.png,bear_png",
+		"keys":"rects,kuchipatchi1.png,bear_png,newParticle_json,newParticle_png",
 		"name":"preload"
 	}],
 	"resources":[
@@ -20,5 +20,15 @@
 		"name":"bear_png",
 		"type":"image",
 		"url":"assets/bear.png"
+	},
+	{
+		"name":"newParticle_json",
+		"type":"json",
+		"url":"assets/newParticle.json"
+	},
+	{
+		"name":"newParticle_png",
+		"type":"image",
+		"url":"assets/newParticle.png"
 	}]
 }
