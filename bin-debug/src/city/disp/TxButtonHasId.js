@@ -20,3 +20,4 @@ var city;
         TxButtonHasId.prototype.__class__ = "city.disp.TxButtonHasId";
     })(disp = city.disp || (city.disp = {}));
 })(city || (city = {}));
+//# sourceMappingURL=TxButtonHasId.js.map

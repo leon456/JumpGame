@@ -151,9 +151,10 @@ module game.jumper{
 
             /// 创建 墙面 底部高50, 两边墙面间距50
             this._vcGroundsFixed = [
-                this.createGround( this._pw, this, 1, 0, 640, 50, "rects.rect-" + "9", 0, 750 )   /// 地面
-                ,this.createGround( this._pw, this, 2, 0, 5, 750, "rects.rect-" + "1", 0, 0 )      /// 左墙面
-                ,this.createGround( this._pw, this, 3, 0, 5, 750, "rects.rect-" + "1", 475, 0 )  /// 右墙面
+                this.createGround( this._pw, this, 7, 0, 640, 50, "rects.rect-" + "9", 0, 0 )  /// 天花板
+                ,this.createGround( this._pw, this, 1, 0, 640, 50, "rects.rect-" + "9", 0, 750 )   /// 地面
+                ,this.createGround( this._pw, this, 2, 0, 0, 750, "rects.rect-" + "1", 0, 0 )      /// 左墙面
+                ,this.createGround( this._pw, this, 3, 0, 0, 750, "rects.rect-" + "1", 475, 0 )  /// 右墙面
             ];
            city.phys.P2Space.syncDisplay( this._vcGroundsFixed[0] );
            city.phys.P2Space.syncDisplay( this._vcGroundsFixed[1] );
