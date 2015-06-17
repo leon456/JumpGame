@@ -1,5 +1,12 @@
 {
 	"close":false,
+	"publishSetting":
+	{
+		"compile":false,
+		"password":"",
+		"runtime":"html5",
+		"version":""
+	},
 	"resourcePlugin":
 	{
 		"configs":[
