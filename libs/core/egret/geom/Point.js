@@ -77,6 +77,25 @@ var egret;
         Point.distance = function (p1, p2) {
             return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
         };
+        /**
+         * 将 Point 的成员设置为指定值
+         * @method egret.Point#setTo
+         * @param xa {number} 要将 Point 设置为的值
+         * @param ya {number} 要将 Point 设置为的值
+         */
+        __egretProto__.setTo = function (xa, ya) {
+            this.x = xa;
+            this.y = ya;
+        };
+        /**
+         * 将源 Point 对象中的所有点数据复制到调用方 Point 对象中。
+         * @method egret.Point#copyForm
+         * @param sourcePoint {egret.Point} 要从中复制数据的 Point 对象
+         */
+        __egretProto__.copyForm = function (sourcePoint) {
+            this.x = sourcePoint.x;
+            this.y = sourcePoint.y;
+        };
         Point.identity = new Point(0, 0);
         return Point;
     })(egret.HashObject);

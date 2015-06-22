@@ -111,11 +111,8 @@ var egret;
             this.renderContext.clearScreen();
             this.renderContext.onRenderStart();
             egret.Texture.deleteWebGLTexture(this);
-            if (displayObject._DO_Props_._filter) {
-                this.renderContext.setGlobalFilter(displayObject._DO_Props_._filter);
-            }
-            if (displayObject._DO_Props_._colorTransform) {
-                this.renderContext.setGlobalColorTransform(displayObject._DO_Props_._colorTransform.matrix);
+            if (displayObject._hasFilters()) {
+                displayObject._setGlobalFilters(this.renderContext);
             }
             var mask = displayObject.mask || displayObject._DO_Props_._scrollRect;
             if (mask) {
@@ -128,11 +125,8 @@ var egret;
             if (mask) {
                 this.renderContext.popMask();
             }
-            if (displayObject._DO_Props_._colorTransform) {
-                this.renderContext.setGlobalColorTransform(null);
-            }
-            if (displayObject._DO_Props_._filter) {
-                this.renderContext.setGlobalFilter(null);
+            if (displayObject._hasFilters()) {
+                displayObject._removeGlobalFilters(this.renderContext);
             }
             RenderTexture.identityRectangle.width = width;
             RenderTexture.identityRectangle.height = height;
@@ -172,7 +166,17 @@ var egret;
                 this.renderContext = null;
             }
         };
+        RenderTexture.create = function () {
+            if (RenderTexture._pool.length) {
+                return RenderTexture._pool.pop();
+            }
+            return new RenderTexture();
+        };
+        RenderTexture.release = function (value) {
+            RenderTexture._pool.push(value);
+        };
         RenderTexture.identityRectangle = new egret.Rectangle();
+        RenderTexture._pool = [];
         return RenderTexture;
     })(egret.Texture);
     egret.RenderTexture = RenderTexture;

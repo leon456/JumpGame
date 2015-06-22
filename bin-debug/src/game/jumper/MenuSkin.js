@@ -25,4 +25,3 @@ var game;
         MenuSkin.prototype.__class__ = "game.jumper.MenuSkin";
     })(jumper = game.jumper || (game.jumper = {}));
 })(game || (game = {}));
-//# sourceMappingURL=MenuSkin.js.map

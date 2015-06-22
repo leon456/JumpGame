@@ -238,7 +238,6 @@ var egret;
             var bitmapData = Texture._bitmapDataFactory[url];
             if (!bitmapData) {
                 bitmapData = document.createElement("img");
-                bitmapData.crossOrigin = "anonymous";
                 bitmapData.setAttribute("bitmapSrc", url);
                 Texture._bitmapDataFactory[url] = bitmapData;
             }
@@ -246,10 +245,11 @@ var egret;
                 callback(0, bitmapData);
                 return;
             }
+            bitmapData.crossOrigin = Texture.crossOrigin;
             var winURL = window["URL"] || window["webkitURL"];
             if (Texture._bitmapCallbackMap[url] == null) {
                 Texture._addToCallbackList(url, callback);
-                if (url.indexOf("http:") != 0 && url.indexOf("https:") != 0 && (egret.Browser.getInstance().isIOS() && parseInt(egret.Browser.getInstance().getIOSVersion().charAt(0)) >= 7) && winURL) {
+                if (url.indexOf("data:") != 0 && url.indexOf("http:") != 0 && url.indexOf("https:") != 0 && (egret.Browser.getInstance().isIOS() && parseInt(egret.Browser.getInstance().getIOSVersion().charAt(0)) >= 7) && winURL) {
                     var xhr = new XMLHttpRequest();
                     xhr.open("get", url, true);
                     xhr.responseType = "blob";
@@ -362,6 +362,11 @@ var egret;
             list.push(callback);
             Texture._bitmapCallbackMap[url] = list;
         };
+        /**
+         * 当从其他站点加载一个图片时，指定是否启用跨域资源共享(CORS)，默认值为null。
+         * 可以设置为"anonymous","use-credentials"或null。
+         */
+        Texture.crossOrigin = null;
         Texture._bitmapDataFactory = {};
         Texture._bitmapCallbackMap = {};
         return Texture;

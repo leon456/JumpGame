@@ -180,9 +180,7 @@ var egret;
         };
         __egretProto__.onRenderFinish = function () {
         };
-        __egretProto__.setGlobalColorTransform = function (colorTransformMatrix) {
-        };
-        __egretProto__.setGlobalFilter = function (filterData) {
+        __egretProto__.setGlobalFilters = function (filterData) {
         };
         __egretProto__.drawCursor = function (x1, y1, x2, y2) {
         };

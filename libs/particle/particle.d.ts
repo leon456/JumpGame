@@ -118,7 +118,7 @@ declare module particle {
         private clear();
         private addOneParticle();
         advanceParticle(particle: Particle, dt: number): void;
-        private transform;
+        private transformForRender;
         _render(renderContext: egret.RendererContext): void;
     }
 }

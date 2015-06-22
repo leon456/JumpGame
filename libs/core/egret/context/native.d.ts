@@ -81,6 +81,7 @@ declare module egret {
          * @param repeat {string}
          */
         drawImage(texture: Texture, sourceX: any, sourceY: any, sourceWidth: any, sourceHeight: any, destX: any, destY: any, destWidth: any, destHeight: any, repeat?: any): void;
+        private useGlow(texture, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
         /**
          * 绘制9宫图片
          * @method egret.RendererContext#drawImageScale9
@@ -139,8 +140,9 @@ declare module egret {
         drawText(textField: egret.TextField, text: string, x: number, y: number, maxWidth: number, style?: egret.ITextStyle): void;
         pushMask(mask: Rectangle): void;
         popMask(): void;
-        setGlobalColorTransform(colorTransformMatrix: Array<any>): void;
-        setGlobalFilter(filterData: Filter): void;
+        private globalColorTransformEnabled;
+        private filters;
+        setGlobalFilters(filtersData: Array<Filter>): void;
     }
 }
 declare var egret_native_graphics: any;

@@ -50,4 +50,3 @@ var city;
         LoadingUI.prototype.__class__ = "city.disp.LoadingUI";
     })(disp = city.disp || (city.disp = {}));
 })(city || (city = {}));
-//# sourceMappingURL=LoadingUI.js.map

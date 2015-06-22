@@ -144,4 +144,3 @@ var city;
         P2Space.prototype.__class__ = "city.phys.P2Space";
     })(phys = city.phys || (city.phys = {}));
 })(city || (city = {}));
-//# sourceMappingURL=P2Space.js.map

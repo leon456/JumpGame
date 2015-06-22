@@ -37,7 +37,7 @@ var egret;
         function Browser() {
             _super.call(this);
             this.trans = null;
-            this.header = "";
+            this.header = null;
             this.ua = navigator.userAgent.toLowerCase();
             this.trans = this.getTrans("transform");
         }
@@ -82,25 +82,41 @@ var egret;
          * 获取当前浏览器对应style类型
          * @type {string}
          */
-        __egretProto__.getTrans = function (type) {
-            if (this.header == "") {
-                this.header = this.getHeader();
+        __egretProto__.getTrans = function (style, judge) {
+            if (judge === void 0) { judge = false; }
+            var header = "";
+            if (judge) {
+                header = this.getHeader(style);
             }
-            return this.header + type.substring(1, type.length);
+            else {
+                if (this.header == null) {
+                    this.header = this.getHeader("transform");
+                }
+                header = this.header;
+            }
+            if (header == "") {
+                return style;
+            }
+            return header + style.charAt(0).toUpperCase() + style.substring(1, style.length);
         };
         /**
          * 获取当前浏览器的类型
          * @returns {string}
          */
-        __egretProto__.getHeader = function () {
-            var tempStyle = document.createElement('div').style;
-            var transArr = ["t", "webkitT", "msT", "MozT", "OT"];
-            for (var i = 0; i < transArr.length; i++) {
-                var transform = transArr[i] + 'ransform';
-                if (transform in tempStyle)
-                    return transArr[i];
+        __egretProto__.getHeader = function (style) {
+            var divStyles = document.createElement('div').style;
+            if (style in divStyles) {
+                return "";
             }
-            return transArr[0];
+            style = style.charAt(0).toUpperCase() + style.substring(1, style.length);
+            var transArr = ["webkit", "ms", "Moz", "O"];
+            for (var i = 0; i < transArr.length; i++) {
+                var tempStyle = transArr[i] + style;
+                if (tempStyle in divStyles) {
+                    return transArr[i];
+                }
+            }
+            return "";
         };
         __egretProto__.$new = function (x) {
             return this.$(document.createElement(x));

@@ -51,6 +51,21 @@ var egret;
             this.height = height;
         }
         var __egretProto__ = Rectangle.prototype;
+        Object.defineProperty(__egretProto__, "left", {
+            /**
+             * 矩形左上角的 x 坐标。
+             * @member {number} egret.Rectangle#left
+             */
+            get: function () {
+                return this.x;
+            },
+            set: function (value) {
+                this.width += this.x - value;
+                this.x = value;
+            },
+            enumerable: true,
+            configurable: true
+        });
         Object.defineProperty(__egretProto__, "right", {
             /**
              * x 和 width 属性的和。
@@ -61,6 +76,21 @@ var egret;
             },
             set: function (value) {
                 this.width = value - this.x;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(__egretProto__, "top", {
+            /**
+             * 矩形左上角的 y 坐标。
+             * @member {number} egret.Rectangle#top
+             */
+            get: function () {
+                return this.y;
+            },
+            set: function (value) {
+                this.height += this.y - value;
+                this.y = value;
             },
             enumerable: true,
             configurable: true
@@ -140,6 +170,49 @@ var egret;
                 return true;
             }
             return false;
+        };
+        /**
+         * 将 Rectangle 的成员设置为指定值
+         * @method egret.Rectangle#setTo
+         * @param xa {number} 要将 Rectangle 设置为的值
+         * @param ya {number} 要将 Rectangle 设置为的值
+         * @param widtha {number} 要将 Rectangle 设置为的值
+         * @param heighta {number} 要将 Rectangle 设置为的值
+         */
+        __egretProto__.setTo = function (xa, ya, widtha, heighta) {
+            this.initialize(xa, ya, widtha, heighta);
+        };
+        /**
+         * 将源 Rectangle 对象中的所有矩形数据复制到调用方 Rectangle 对象中
+         * @method egret.Rectangle#copyForm
+         * @param sourceRect {egret.Rectangle} 要从中复制数据的 Rectangle 对象
+         */
+        __egretProto__.copyForm = function (sourceRect) {
+            this.x = sourceRect.x;
+            this.y = sourceRect.y;
+            this.width = sourceRect.width;
+            this.height = sourceRect.height;
+        };
+        /**
+         * 按指定量增加 Rectangle 对象的大小（以像素为单位）
+         * 保持 Rectangle 对象的中心点不变，使用 dx 值横向增加它的大小，使用 dy 值纵向增加它的大小。
+         * @method egret.Rectangle#inflate
+         * @param dx {number} Rectangle 对象横向增加的值。
+         * @param dy {number} Rectangle 对象纵向增加的值。
+         */
+        __egretProto__.inflate = function (dx, dy) {
+            this.x -= dx;
+            this.width += 2 * dx;
+            this.y -= dy;
+            this.height += 2 * dy;
+        };
+        /**
+         * 确定此 Rectangle 对象是否为空
+         * @method egret.Rectangle#isEmpty
+         * @returns {boolean} 如果 Rectangle 对象的宽度或高度小于等于 0，则返回 true 值，否则返回 false
+         */
+        __egretProto__.isEmpty = function () {
+            return this.width == 0 || this.height == 0;
         };
         /**
          * 引擎内部用于函数传递返回值的全局矩形对象，开发者请勿随意修改此对象

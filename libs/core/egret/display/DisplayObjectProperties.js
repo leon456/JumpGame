@@ -49,7 +49,7 @@ var egret;
             this._skewX = 0;
             this._skewY = 0;
             this._blendMode = null;
-            this._touchEnabled = false;
+            this._touchEnabled = DisplayObjectProperties.defaultTouchEnabled;
             this._visible = true;
             this._worldAlpha = 1;
             this._scrollRect = null;
@@ -60,11 +60,7 @@ var egret;
             /**
              * beta功能，请勿调用此方法
              */
-            this._colorTransform = null;
-            /**
-             * beta功能，请勿调用此方法
-             */
-            this._filter = null;
+            this._filters = null;
             this._hasWidthSet = false;
             this._hasHeightSet = false;
             this._normalDirty = true;
@@ -73,6 +69,11 @@ var egret;
             this._isContainer = false;
         }
         var __egretProto__ = DisplayObjectProperties.prototype;
+        /**
+         * 每个显示对象初始化时默认的 touchEnabled 属性值
+         * @default false
+         */
+        DisplayObjectProperties.defaultTouchEnabled = false;
         return DisplayObjectProperties;
     })();
     egret.DisplayObjectProperties = DisplayObjectProperties;

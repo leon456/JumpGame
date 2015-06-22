@@ -48,4 +48,3 @@ var city;
         StrongAssets.prototype.__class__ = "city.assets.StrongAssets";
     })(assets = city.assets || (city.assets = {}));
 })(city || (city = {}));
-//# sourceMappingURL=StrongAssets.js.map

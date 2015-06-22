@@ -21,4 +21,3 @@ var city;
         Mark.prototype.__class__ = "city.disp.Mark";
     })(disp = city.disp || (city.disp = {}));
 })(city || (city = {}));
-//# sourceMappingURL=Mark.js.map

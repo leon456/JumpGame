@@ -351,6 +351,32 @@ var egret;
             }
             return this.array;
         };
+        /**
+         * 将 Matrix 的成员设置为指定值
+         * @method egret.Matrix#setTo
+         * @param aa {number} 要将 Matrix 设置为的值
+         * @param ba {number} 要将 Matrix 设置为的值
+         * @param ca {number} 要将 Matrix 设置为的值
+         * @param da {number} 要将 Matrix 设置为的值
+         * @param txa {number} 要将 Matrix 设置为的值
+         * @param tya {number} 要将 Matrix 设置为的值
+         */
+        __egretProto__.setTo = function (aa, ba, ca, da, txa, tya) {
+            this.a = aa;
+            this.b = ba;
+            this.c = ca;
+            this.d = da;
+            this.tx = txa;
+            this.ty = tya;
+        };
+        /**
+         * 将源 Matrix 对象中的所有矩阵数据复制到调用方 Matrix 对象中。
+         * @method egret.Matrix#copyForm
+         * @param sourceMatrix {egret.Matrix} 要从中复制数据的 Matrix 对象
+         */
+        __egretProto__.copyForm = function (sourceMatrix) {
+            this.identityMatrix(sourceMatrix);
+        };
         Matrix.identity = new Matrix();
         Matrix.DEG_TO_RAD = Math.PI / 180;
         return Matrix;

@@ -1,4 +1,7 @@
 declare module egret {
+    /**
+     * @private
+     */
     var egret_string_code: {};
 }
 
@@ -1408,6 +1411,25 @@ declare module egret {
 
 declare module egret {
     /**
+     * 在指定的延迟（以毫秒为单位）后运行指定的函数。
+     * @method egret.setInterval
+     * @param listener {Function} 侦听函数
+     * @param thisObject {any} this对象
+     * @param delay {number} 延迟时间，以毫秒为单位
+     * @param ...args {any} 参数列表
+     * @returns {number} 返回索引，可以用于 clearInterval
+     */
+    function setInterval(listener: Function, thisObject: any, delay: number, ...args: any[]): number;
+    /**
+     * 清除指定延迟后运行的函数。
+     * @method egret.clearInterval
+     * @param key {number} egret.setInterval所返回的索引
+     */
+    function clearInterval(key: number): void;
+}
+
+declare module egret {
+    /**
      * 检查指定的应用程序域之内是否存在一个公共定义。该定义可以是一个类、一个命名空间或一个函数的定义。
      * @method egret.hasDefinition
      * @param name {string} 定义的名称。
@@ -1600,6 +1622,23 @@ declare module egret {
         static transformCoords(matrix: Matrix, x: number, y: number): Point;
         private array;
         toArray(transpose: any): any;
+        /**
+         * 将 Matrix 的成员设置为指定值
+         * @method egret.Matrix#setTo
+         * @param aa {number} 要将 Matrix 设置为的值
+         * @param ba {number} 要将 Matrix 设置为的值
+         * @param ca {number} 要将 Matrix 设置为的值
+         * @param da {number} 要将 Matrix 设置为的值
+         * @param txa {number} 要将 Matrix 设置为的值
+         * @param tya {number} 要将 Matrix 设置为的值
+         */
+        setTo(aa: number, ba: number, ca: number, da: number, txa: number, tya: number): void;
+        /**
+         * 将源 Matrix 对象中的所有矩阵数据复制到调用方 Matrix 对象中。
+         * @method egret.Matrix#copyForm
+         * @param sourceMatrix {egret.Matrix} 要从中复制数据的 Matrix 对象
+         */
+        copyForm(sourceMatrix: Matrix): void;
     }
 }
 
@@ -1650,6 +1689,19 @@ declare module egret {
          * @returns {number} 第一个点和第二个点之间的距离。
          */
         static distance(p1: egret.Point, p2: egret.Point): number;
+        /**
+         * 将 Point 的成员设置为指定值
+         * @method egret.Point#setTo
+         * @param xa {number} 要将 Point 设置为的值
+         * @param ya {number} 要将 Point 设置为的值
+         */
+        setTo(xa: number, ya: number): void;
+        /**
+         * 将源 Point 对象中的所有点数据复制到调用方 Point 对象中。
+         * @method egret.Point#copyForm
+         * @param sourcePoint {egret.Point} 要从中复制数据的 Point 对象
+         */
+        copyForm(sourcePoint: Point): void;
     }
 }
 
@@ -1686,10 +1738,20 @@ declare module egret {
          */
         height: number;
         /**
+         * 矩形左上角的 x 坐标。
+         * @member {number} egret.Rectangle#left
+         */
+        left: number;
+        /**
          * x 和 width 属性的和。
          * @member {number} egret.Rectangle#right
          */
         right: number;
+        /**
+         * 矩形左上角的 y 坐标。
+         * @member {number} egret.Rectangle#top
+         */
+        top: number;
         /**
          * y 和 height 属性的和。
          * @member {number} egret.Rectangle#bottom
@@ -1740,6 +1802,151 @@ declare module egret {
          * @returns {boolean} 如果包含，返回true，否则返回false
          */
         containsPoint(point: Point): boolean;
+        /**
+         * 将 Rectangle 的成员设置为指定值
+         * @method egret.Rectangle#setTo
+         * @param xa {number} 要将 Rectangle 设置为的值
+         * @param ya {number} 要将 Rectangle 设置为的值
+         * @param widtha {number} 要将 Rectangle 设置为的值
+         * @param heighta {number} 要将 Rectangle 设置为的值
+         */
+        setTo(xa: number, ya: number, widtha: number, heighta: number): void;
+        /**
+         * 将源 Rectangle 对象中的所有矩形数据复制到调用方 Rectangle 对象中
+         * @method egret.Rectangle#copyForm
+         * @param sourceRect {egret.Rectangle} 要从中复制数据的 Rectangle 对象
+         */
+        copyForm(sourceRect: Rectangle): void;
+        /**
+         * 按指定量增加 Rectangle 对象的大小（以像素为单位）
+         * 保持 Rectangle 对象的中心点不变，使用 dx 值横向增加它的大小，使用 dy 值纵向增加它的大小。
+         * @method egret.Rectangle#inflate
+         * @param dx {number} Rectangle 对象横向增加的值。
+         * @param dy {number} Rectangle 对象纵向增加的值。
+         */
+        inflate(dx: number, dy: number): void;
+        /**
+         * 确定此 Rectangle 对象是否为空
+         * @method egret.Rectangle#isEmpty
+         * @returns {boolean} 如果 Rectangle 对象的宽度或高度小于等于 0，则返回 true 值，否则返回 false
+         */
+        isEmpty(): boolean;
+    }
+}
+
+declare module egret {
+    /**
+     * @private
+     */
+    class ColorTransform extends HashObject {
+        constructor(redMultiplier?: number, greenMultiplier?: number, blueMultiplier?: number, alphaMultiplier?: number, redOffset?: number, greenOffset?: number, blueOffset?: number, alphaOffset?: number);
+        /**
+         * @private
+         */
+        _alphaMultiplier: number;
+        /**
+         * 与 Alpha 透明度通道值相乘的十进制值。
+         * @member {number} egret.ColorTransform#alphaMultiplier
+         * @default 1
+         */
+        alphaMultiplier: number;
+        /**
+         * @private
+         */
+        _alphaOffset: number;
+        /**
+         * -255 到 255 之间的数字，加到 Alpha 透明度通道值和 alphaMultiplier 值的乘积上。
+         * @member {number} egret.ColorTransform#alphaOffset
+         * @default 0
+         */
+        alphaOffset: number;
+        /**
+         * @private
+         */
+        _blueMultiplier: number;
+        /**
+         * 与蓝色通道值相乘的十进制值。
+         * @member {number} egret.ColorTransform#blueMultiplier
+         * @default 1
+         */
+        blueMultiplier: number;
+        /**
+         * @private
+         */
+        _blueOffset: number;
+        /**
+         * -255 到 255 之间的数字，加到蓝色通道值和 blueMultiplier 值的乘积上。
+         * @member {number} egret.ColorTransform#blueOffset
+         * @default 0
+         */
+        blueOffset: number;
+        /**
+         * @private
+         */
+        _greenMultiplier: number;
+        /**
+         * 与绿色通道值相乘的十进制值。
+         * @member {number} egret.ColorTransform#greenMultiplier
+         * @default 1
+         */
+        greenMultiplier: number;
+        /**
+         * @private
+         */
+        _greenOffset: number;
+        /**
+         * -255 到 255 之间的数字，加到绿色通道值和 greenMultiplier 值的乘积上。
+         * @member {number} egret.ColorTransform#greenOffset
+         * @default 0
+         */
+        greenOffset: number;
+        /**
+         * @private
+         */
+        _redMultiplier: number;
+        /**
+         * 与红色通道值相乘的十进制值。
+         * @member {number} egret.ColorTransform#redMultiplier
+         * @default 1
+         */
+        redMultiplier: number;
+        /**
+         * @private
+         */
+        _redOffset: number;
+        /**
+         * -255 到 255 之间的数字，加到红色通道值和 redMultiplier 值的乘积上。
+         * @member {number} egret.ColorTransform#redOffset
+         * @default 0
+         */
+        redOffset: number;
+        /**
+         * ColorTransform 对象的 RGB 颜色值。
+         * @member {number} egret.ColorTransform#color
+         */
+        color: number;
+        identityColorTransform(colorTransform: ColorTransform): void;
+    }
+}
+
+declare module egret {
+    /**
+     * @private
+     */
+    class Transform extends HashObject {
+        private _display;
+        constructor(display: DisplayObject);
+        private _matrix;
+        private _matrix2;
+        matrix: Matrix;
+        private _setMatrix(value);
+        /**
+         * @private
+         */
+        _colorTransform: ColorTransform;
+        private _colorTransform2;
+        colorTransform: ColorTransform;
+        private _setColorTransform(value);
     }
 }
 
@@ -2124,11 +2331,29 @@ declare module egret {
     }
 }
 
+declare module egret.BitmapFilterQuality {
+    /**
+     * 定义低品质滤镜设置
+     * @private
+     */
+    var LOW: number;
+    /**
+     * 定义中等品质滤镜设置
+     * @private
+     */
+    var MEDIUM: number;
+    /**
+     * 定义高品质滤镜设置
+     * @private
+     */
+    var HIGH: number;
+}
+
 declare module egret {
     /**
      * @private
      */
-    class Filter {
+    class Filter extends HashObject {
         type: string;
     }
 }
@@ -2141,6 +2366,87 @@ declare module egret {
         blurX: number;
         blurY: number;
         constructor(blurX: number, blurY: number);
+    }
+}
+
+declare module egret {
+    /**
+     * @private
+     */
+    class ColorMatrixFilter extends Filter {
+        /**
+         * @private
+         */
+        _matrix: Array<number>;
+        private _matrix2;
+        constructor(matrix?: Array<number>);
+        matrix: Array<number>;
+        private _setMatrix(value);
+    }
+}
+
+declare module egret {
+    /**
+     * @class egret.GlowFilter
+     * @classdesc
+     * 使用 GlowFilter 类可以对显示对象应用发光效果。在投影滤镜的 distance 和 angle 属性设置为 0 时，发光滤镜与投影滤镜极为相似。
+     * @extends egret.Filter
+     * @private
+     */
+    class GlowFilter extends Filter {
+        color: number;
+        alpha: number;
+        blurX: number;
+        blurY: number;
+        strength: number;
+        quality: number;
+        inner: boolean;
+        knockout: boolean;
+        _red: number;
+        _green: number;
+        _blue: number;
+        /**
+         * 初始化 GlowFilter 对象
+         * @method egret.GlowFilter#constructor
+         * @param color {number} 光晕颜色，采用十六进制格式 0xRRGGBB。默认值为 0xFF0000。
+         * @param alpha {number} 颜色的 Alpha 透明度值。有效值为 0 到 1。例如，0.25 设置透明度值为 25%。
+         * @param blurX {number} 水平模糊量。有效值为 0 到 255（浮点）。
+         * @param blurY {number} 垂直模糊量。有效值为 0 到 255（浮点）。
+         * @param strength {number} 印记或跨页的强度。该值越高，压印的颜色越深，而且发光与背景之间的对比度也越强。有效值为 0 到 255。
+         * @param quality {number} 应用滤镜的次数。
+         * @param inner {boolean} 指定发光是否为内侧发光。值 true 指定发光是内侧发光。值 false 指定发光是外侧发光（对象外缘周围的发光）。暂未实现。
+         * @param knockout {number} 指定对象是否具有挖空效果。值为 true 将使对象的填充变为透明，并显示文档的背景颜色。暂未实现。
+         */
+        constructor(color?: number, alpha?: number, blurX?: number, blurY?: number, strength?: number, quality?: number, inner?: boolean, knockout?: boolean);
+    }
+}
+
+declare module egret {
+    /**
+     * @class egret.DropShadowFilter
+     * @classdesc
+     * 可使用 DropShadowFilter 类向显示对象添加投影。
+     * @extends egret.GlowFilter
+     * @private
+     */
+    class DropShadowFilter extends GlowFilter {
+        distance: number;
+        angle: number;
+        /**
+         * 初始化 DropShadowFilter 对象
+         * @method egret.GlowFilter#constructor
+         * @param distance {number} 阴影的偏移距离，以像素为单位。
+         * @param angle {number} 阴影的角度，0 到 360 度（浮点）。
+         * @param color {number} 光晕颜色，采用十六进制格式 0xRRGGBB。默认值为 0xFF0000。
+         * @param alpha {number} 颜色的 Alpha 透明度值。有效值为 0 到 1。例如，0.25 设置透明度值为 25%。
+         * @param blurX {number} 水平模糊量。有效值为 0 到 255（浮点）。
+         * @param blurY {number} 垂直模糊量。有效值为 0 到 255（浮点）。
+         * @param strength {number} 印记或跨页的强度。该值越高，压印的颜色越深，而且发光与背景之间的对比度也越强。有效值为 0 到 255。暂未实现。
+         * @param quality {number} 应用滤镜的次数。
+         * @param inner {boolean} 指定发光是否为内侧发光。值 true 指定发光是内侧发光。值 false 指定发光是外侧发光（对象外缘周围的发光）。暂未实现。
+         * @param knockout {number} 指定对象是否具有挖空效果。值为 true 将使对象的填充变为透明，并显示文档的背景颜色。暂未实现。
+         */
+        constructor(distance?: number, angle?: number, color?: number, alpha?: number, blurX?: number, blurY?: number, strength?: number, quality?: number, inner?: boolean, knockout?: boolean, hideObject?: boolean);
     }
 }
 
@@ -2199,6 +2505,11 @@ declare module egret {
         _skewX: number;
         _skewY: number;
         _blendMode: string;
+        /**
+         * 每个显示对象初始化时默认的 touchEnabled 属性值
+         * @default false
+         */
+        static defaultTouchEnabled: boolean;
         _touchEnabled: boolean;
         _visible: boolean;
         _worldAlpha: number;
@@ -2210,11 +2521,7 @@ declare module egret {
         /**
          * beta功能，请勿调用此方法
          */
-        _colorTransform: ColorTransform;
-        /**
-         * beta功能，请勿调用此方法
-         */
-        _filter: Filter;
+        _filters: Array<Filter>;
         _hasWidthSet: boolean;
         _hasHeightSet: boolean;
         _normalDirty: boolean;
@@ -2458,10 +2765,11 @@ declare module egret {
          * @param renderContext
          */
         _draw(renderContext: RendererContext): void;
-        _setGlobalFilter(renderContext: RendererContext): void;
-        _removeGlobalFilter(renderContext: RendererContext): void;
-        _setGlobalColorTransform(renderContext: RendererContext): void;
-        _removeGlobalColorTransform(renderContext: RendererContext): void;
+        private static color;
+        private static colorMatrixFilter;
+        _setGlobalFilters(renderContext: RendererContext): void;
+        _removeGlobalFilters(renderContext: RendererContext): void;
+        _hasFilters(): boolean;
         _pushMask(renderContext: RendererContext): void;
         _popMask(renderContext: RendererContext): void;
         /**
@@ -2589,18 +2897,9 @@ declare module egret {
         /**
          * @private
          */
-        colorTransform: ColorTransform;
-        /**
-         * @private
-         */
-        filter: Filter;
-    }
-    /**
-     * @private
-     */
-    class ColorTransform {
-        matrix: Array<number>;
-        updateColor(r: number, g: number, b: number, a: number, addR: number, addG: number, addB: number, addA: number): void;
+        filters: Array<Filter>;
+        private _transform;
+        transform: Transform;
     }
 }
 
@@ -4598,6 +4897,11 @@ declare module egret {
         _disposeForNative(): void;
         static deleteWebGLTexture(texture: Texture): void;
         static createBitmapData(url: string, callback: (code: number, bitmapData: any) => void): void;
+        /**
+         * 当从其他站点加载一个图片时，指定是否启用跨域资源共享(CORS)，默认值为null。
+         * 可以设置为"anonymous","use-credentials"或null。
+         */
+        static crossOrigin: string;
         static _createBitmapDataForCanvasAndWebGl(url: string, callback: (code: number, bitmapData: any) => void): void;
         static _onLoad(url: any, bitmapData: any): void;
         static _onError(url: any, bitmapData: any): void;
@@ -4643,6 +4947,9 @@ declare module egret {
         begin(): void;
         end(): void;
         dispose(): void;
+        private static _pool;
+        static create(): RenderTexture;
+        static release(value: RenderTexture): void;
     }
 }
 
@@ -4763,8 +5070,7 @@ declare module egret {
         popMask(): void;
         onRenderStart(): void;
         onRenderFinish(): void;
-        setGlobalColorTransform(colorTransformMatrix: Array<number>): void;
-        setGlobalFilter(filterData: Filter): void;
+        setGlobalFilters(filterData: Array<Filter>): void;
         drawCursor(x1: number, y1: number, x2: number, y2: number): void;
         static createRendererContext(canvas: any): RendererContext;
         static blendModesForGL: any;
@@ -4925,12 +5231,12 @@ declare module egret {
          * 获取当前浏览器对应style类型
          * @type {string}
          */
-        getTrans(type: string): string;
+        getTrans(style: string, judge?: boolean): string;
         /**
          * 获取当前浏览器的类型
          * @returns {string}
          */
-        private getHeader();
+        private getHeader(style);
         $new(x: any): any;
         $(x: any): any;
         translate(a: any): string;

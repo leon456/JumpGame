@@ -602,11 +602,8 @@ var egret;
                 return;
             }
             var isCommandPush = egret.MainContext.__use_new_draw && o._DO_Props_._isContainer;
-            if (o._DO_Props_._filter && !isCommandPush) {
-                renderContext.setGlobalFilter(o._DO_Props_._filter);
-            }
-            if (o._DO_Props_._colorTransform && !isCommandPush) {
-                renderContext.setGlobalColorTransform(o._DO_Props_._colorTransform.matrix);
+            if (o._hasFilters() && !isCommandPush) {
+                this._setGlobalFilters(renderContext);
             }
             renderContext.setAlpha(o.worldAlpha, o.blendMode);
             renderContext.setTransform(o._worldTransform);
@@ -618,27 +615,48 @@ var egret;
             if (mask && !isCommandPush) {
                 renderContext.popMask();
             }
-            if (o._DO_Props_._colorTransform && !isCommandPush) {
-                renderContext.setGlobalColorTransform(null);
-            }
-            if (o._DO_Props_._filter && !isCommandPush) {
-                renderContext.setGlobalFilter(null);
+            if (o._hasFilters() && !isCommandPush) {
+                this._removeGlobalFilters(renderContext);
             }
             o.destroyCacheBounds();
         };
-        __egretProto__._setGlobalFilter = function (renderContext) {
+        __egretProto__._setGlobalFilters = function (renderContext) {
             var o = this;
-            renderContext.setGlobalFilter(o._DO_Props_._filter);
+            var arr;
+            if (o._DO_Props_._filters) {
+                arr = o._DO_Props_._filters.concat();
+            }
+            else {
+                arr = [];
+            }
+            if (this._transform) {
+                var colorTransform = this._transform._colorTransform;
+                var color = DisplayObject.color;
+                color[0] = colorTransform._redMultiplier;
+                color[4] = colorTransform._redOffset;
+                color[6] = colorTransform._greenMultiplier;
+                color[9] = colorTransform._greenOffset;
+                color[12] = colorTransform._blueMultiplier;
+                color[14] = colorTransform._blueOffset;
+                color[18] = colorTransform._alphaMultiplier;
+                color[19] = colorTransform._alphaOffset;
+                DisplayObject.colorMatrixFilter._matrix = color;
+                arr.push(DisplayObject.colorMatrixFilter);
+            }
+            renderContext.setGlobalFilters(arr);
         };
-        __egretProto__._removeGlobalFilter = function (renderContext) {
-            renderContext.setGlobalFilter(null);
+        __egretProto__._removeGlobalFilters = function (renderContext) {
+            renderContext.setGlobalFilters(null);
         };
-        __egretProto__._setGlobalColorTransform = function (renderContext) {
-            var o = this;
-            renderContext.setGlobalColorTransform(o._DO_Props_._colorTransform.matrix);
-        };
-        __egretProto__._removeGlobalColorTransform = function (renderContext) {
-            renderContext.setGlobalColorTransform(null);
+        __egretProto__._hasFilters = function () {
+            var result = this._DO_Props_._filters && this._DO_Props_._filters.length > 0;
+            if (this._transform) {
+                var colorTransform = this._transform._colorTransform;
+                if (colorTransform._redMultiplier != 1 || colorTransform._redOffset != 0 || colorTransform._greenMultiplier != 1 || colorTransform._greenOffset != 0 || colorTransform._blueMultiplier != 1 || colorTransform._blueOffset != 0 || colorTransform._alphaMultiplier != 1 || colorTransform._alphaOffset != 0) {
+                    result = true;
+                }
+            }
+            return result;
         };
         __egretProto__._pushMask = function (renderContext) {
             var o = this;
@@ -1177,32 +1195,52 @@ var egret;
             }
             return bounds.initialize(minX, minY, maxX - minX, maxY - minY);
         };
-        Object.defineProperty(__egretProto__, "colorTransform", {
+        Object.defineProperty(__egretProto__, "filters", {
             get: function () {
-                return this._DO_Props_._colorTransform;
+                return this._DO_Props_._filters;
             },
             /**
              * @private
              */
             set: function (value) {
-                this._DO_Props_._colorTransform = value;
+                this._DO_Props_._filters = value;
             },
             enumerable: true,
             configurable: true
         });
-        Object.defineProperty(__egretProto__, "filter", {
+        Object.defineProperty(__egretProto__, "transform", {
             get: function () {
-                return this._DO_Props_._filter;
-            },
-            /**
-             * @private
-             */
-            set: function (value) {
-                this._DO_Props_._filter = value;
+                if (!this._transform) {
+                    this._transform = new egret.Transform(this);
+                }
+                return this._transform;
             },
             enumerable: true,
             configurable: true
         });
+        DisplayObject.color = [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+        ];
+        DisplayObject.colorMatrixFilter = new egret.ColorMatrixFilter();
         /**
          * @private
          * @returns {Matrix}
@@ -1214,19 +1252,4 @@ var egret;
     })(egret.EventDispatcher);
     egret.DisplayObject = DisplayObject;
     DisplayObject.prototype.__class__ = "egret.DisplayObject";
-    /**
-     * @private
-     */
-    var ColorTransform = (function () {
-        function ColorTransform() {
-            this.matrix = null;
-        }
-        var __egretProto__ = ColorTransform.prototype;
-        __egretProto__.updateColor = function (r, g, b, a, addR, addG, addB, addA) {
-            //todo;
-        };
-        return ColorTransform;
-    })();
-    egret.ColorTransform = ColorTransform;
-    ColorTransform.prototype.__class__ = "egret.ColorTransform";
 })(egret || (egret = {}));

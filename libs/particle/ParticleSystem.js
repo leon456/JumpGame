@@ -69,7 +69,7 @@ var particle;
              * @member {number} particle.ParticleSystem#particleClass
              */
             this.particleClass = null;
-            this.transform = new egret.Matrix();
+            this.transformForRender = new egret.Matrix();
             this._texture_to_render = texture;
             this.emissionRate = emissionRate;
             this.texture = texture;
@@ -214,9 +214,9 @@ var particle;
                 var particle;
                 for (var i = 0; i < this.numParticles; i++) {
                     particle = this.particles[i];
-                    this.transform.identityMatrix(this._worldTransform);
-                    this.transform.appendTransform(particle.x, particle.y, particle.scale, particle.scale, particle.rotation, 0, 0, textureW / 2, textureH / 2);
-                    renderContext.setTransform(this.transform);
+                    this.transformForRender.identityMatrix(this._worldTransform);
+                    this.transformForRender.appendTransform(particle.x, particle.y, particle.scale, particle.scale, particle.rotation, 0, 0, textureW / 2, textureH / 2);
+                    renderContext.setTransform(this.transformForRender);
                     renderContext.setAlpha(particle.alpha, egret.BlendMode.NORMAL);
                     renderFilter.drawImage(renderContext, this, bitmapX, bitmapY, bitmapWidth, bitmapHeight, offsetX, offsetY, textureW, textureH);
                 }

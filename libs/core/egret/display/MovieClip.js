@@ -327,6 +327,7 @@ var egret;
                 return;
             }
             this._textureToRender = this._movieClipData.getTextureByFrame(currentFrameNum);
+            this._DO_Props_._sizeDirty = true;
             this._displayedKeyFrameNum = currentFrameNum;
         };
         __egretProto__._handlePendingEvent = function () {

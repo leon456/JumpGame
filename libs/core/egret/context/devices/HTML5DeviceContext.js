@@ -46,7 +46,9 @@ var egret;
             this._time = 0;
             this._requestAnimationId = NaN;
             this._isActivate = true;
-            if (frameRate == 60) {
+            HTML5DeviceContext.countTime = 0;
+            if ((60 % frameRate) == 0) {
+                HTML5DeviceContext.countTime = 60 / frameRate - 1;
                 HTML5DeviceContext.requestAnimationFrame = window["requestAnimationFrame"] || window["webkitRequestAnimationFrame"] || window["mozRequestAnimationFrame"] || window["oRequestAnimationFrame"] || window["msRequestAnimationFrame"];
                 HTML5DeviceContext.cancelAnimationFrame = window["cancelAnimationFrame"] || window["msCancelAnimationFrame"] || window["mozCancelAnimationFrame"] || window["webkitCancelAnimationFrame"] || window["oCancelAnimationFrame"] || window["cancelRequestAnimationFrame"] || window["msCancelRequestAnimationFrame"] || window["mozCancelRequestAnimationFrame"] || window["oCancelRequestAnimationFrame"] || window["webkitCancelRequestAnimationFrame"];
             }
@@ -71,6 +73,11 @@ var egret;
             var thisTime = egret.getTimer();
             var advancedTime = thisTime - context._time;
             context._requestAnimationId = HTML5DeviceContext.requestAnimationFrame.call(window, HTML5DeviceContext.prototype.enterFrame);
+            if (HTML5DeviceContext.count < HTML5DeviceContext.countTime) {
+                HTML5DeviceContext.count++;
+                return;
+            }
+            HTML5DeviceContext.count = 0;
             callback.call(thisObject, advancedTime);
             context._time = thisTime;
         };
@@ -152,12 +159,35 @@ var egret;
             if (hidden && visibilityChange) {
                 document.addEventListener(visibilityChange, handleVisibilityChange, false);
             }
+            var ua = navigator.userAgent;
+            var isWX = /micromessenger/gi.test(ua);
+            var isQQBrowser = /mqq/ig.test(ua);
+            var isQQ = /mobile.*qq/gi.test(ua);
+            if (isQQ || isWX) {
+                isQQBrowser = false;
+            }
+            if (isQQBrowser) {
+                var browser = window["browser"] || {};
+                browser.execWebFn = browser.execWebFn || {};
+                browser.execWebFn.postX5GamePlayerMessage = function (event) {
+                    var eventType = event.type;
+                    if (eventType == "app_enter_background") {
+                        onBlurHandler();
+                    }
+                    else if (eventType == "app_enter_foreground") {
+                        onFocusHandler();
+                    }
+                };
+                window["browser"] = browser;
+            }
         };
         HTML5DeviceContext.instance = null;
+        HTML5DeviceContext.countTime = 0;
         HTML5DeviceContext.requestAnimationFrame = null;
         HTML5DeviceContext.cancelAnimationFrame = null;
         HTML5DeviceContext._thisObject = null;
         HTML5DeviceContext._callback = null;
+        HTML5DeviceContext.count = 0;
         return HTML5DeviceContext;
     })(egret.DeviceContext);
     egret.HTML5DeviceContext = HTML5DeviceContext;

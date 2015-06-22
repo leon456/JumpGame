@@ -1,5 +1,8 @@
 var egret;
 (function (egret) {
+    /**
+     * @private
+     */
     egret.egret_string_code = {};
     egret.egret_string_code[-1] = "不存在的stringId:{0}";
     egret.egret_string_code[1000] = "Browser.isMobile接口参数已经变更，请尽快调整用法为 egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE";

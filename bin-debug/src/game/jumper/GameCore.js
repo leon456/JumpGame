@@ -235,4 +235,3 @@ var game;
         GameCore.prototype.__class__ = "game.jumper.GameCore";
     })(jumper = game.jumper || (game.jumper = {}));
 })(game || (game = {}));
-//# sourceMappingURL=GameCore.js.map

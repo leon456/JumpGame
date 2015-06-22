@@ -40,4 +40,3 @@ var city;
         KeyManager.prototype.__class__ = "city.key.KeyManager";
     })(key = city.key || (city.key = {}));
 })(city || (city = {}));
-//# sourceMappingURL=KeyManager.js.map

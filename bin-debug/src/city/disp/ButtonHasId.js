@@ -20,4 +20,3 @@ var city;
         ButtonHasId.prototype.__class__ = "city.disp.ButtonHasId";
     })(disp = city.disp || (city.disp = {}));
 })(city || (city = {}));
-//# sourceMappingURL=ButtonHasId.js.map

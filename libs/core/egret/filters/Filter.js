@@ -31,13 +31,15 @@ var egret;
     /**
      * @private
      */
-    var Filter = (function () {
+    var Filter = (function (_super) {
+        __extends(Filter, _super);
         function Filter() {
+            _super.apply(this, arguments);
             this.type = null;
         }
         var __egretProto__ = Filter.prototype;
         return Filter;
-    })();
+    })(egret.HashObject);
     egret.Filter = Filter;
     Filter.prototype.__class__ = "egret.Filter";
 })(egret || (egret = {}));

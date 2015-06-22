@@ -51,8 +51,11 @@ var egret;
                 return;
             }
             if (loader.dataFormat == egret.URLLoaderDataFormat.SOUND) {
-                if (egret.Browser.getInstance().isIOS() && egret.WebAudio.canUseWebAudio) {
+                if (egret.Html5Capatibility._audioType == egret.AudioType.WEB_AUDIO) {
                     this.loadWebAudio(loader);
+                }
+                else if (egret.Html5Capatibility._audioType == egret.AudioType.QQ_AUDIO) {
+                    this.loadQQAudio(loader);
                 }
                 else {
                     this.loadSound(loader);
@@ -135,6 +138,27 @@ var egret;
                 egret.IOErrorEvent.dispatchIOErrorEvent(loader);
             }
             ;
+        };
+        __egretProto__.loadQQAudio = function (loader) {
+            var virtualUrl = egret.Html5Capatibility._QQRootPath + this.getVirtualUrl(loader._request.url);
+            console.log("loadQQAudio");
+            QZAppExternal.preloadSound(function (data) {
+                if (data.code == 0) {
+                    var audio = new egret.QQAudio();
+                    audio._setPath(virtualUrl);
+                    var sound = new egret.Sound();
+                    sound._setAudio(audio);
+                    loader.data = sound;
+                    egret.__callAsync(egret.Event.dispatchEvent, egret.Event, loader, egret.Event.COMPLETE);
+                }
+                else {
+                    egret.IOErrorEvent.dispatchIOErrorEvent(loader);
+                }
+            }, {
+                bid: -1,
+                url: virtualUrl,
+                refresh: 1
+            });
         };
         __egretProto__.loadWebAudio = function (loader) {
             var virtualUrl = this.getVirtualUrl(loader._request.url);

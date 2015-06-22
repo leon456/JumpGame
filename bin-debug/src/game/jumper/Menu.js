@@ -17,4 +17,3 @@ var live;
     live.Menu = Menu;
     Menu.prototype.__class__ = "live.Menu";
 })(live || (live = {}));
-//# sourceMappingURL=Menu.js.map

@@ -57,4 +57,3 @@ var game;
         Bootstrap.prototype.__class__ = "game.jumper.Bootstrap";
     })(jumper = game.jumper || (game.jumper = {}));
 })(game || (game = {}));
-//# sourceMappingURL=Bootstrap.js.map

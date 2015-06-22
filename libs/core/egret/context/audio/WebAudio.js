@@ -39,6 +39,7 @@ var egret;
             this._loop = false;
             this._listeners = [];
             this._onEndedCall = null;
+            this._volume = 1;
             this._startTime = 0;
             this._currentTime = 0;
             if (WebAudio.ctx["createGain"]) {
@@ -98,6 +99,7 @@ var egret;
             };
             this.paused = false;
             this._startTime = Date.now();
+            this.gain.gain.value = this._volume;
             bufferSource.start(0, this._currentTime);
             this._currentTime = 0;
         };
@@ -199,9 +201,10 @@ var egret;
          * @returns number
          */
         __egretProto__._getVolume = function () {
-            return this.gain.gain.value;
+            return this._volume;
         };
         __egretProto__._setVolume = function (value) {
+            this._volume = value;
             this.gain.gain.value = value;
         };
         __egretProto__._setLoop = function (value) {
