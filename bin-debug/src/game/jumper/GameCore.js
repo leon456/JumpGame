@@ -126,16 +126,29 @@ var game;
                 ];
                 /// 创建 墙面 底部高50, 两边墙面间距50
                 this._vcGroundsFixed = [
-                    this.createGround(this._pw, this, 7, 0, 640, 50, "rects.rect-" + "9", 0, 0),
+                    this.createGround(this._pw, this, 7, 0, 640, 50, "rects.rect-8", 0, 0),
                     this.createGround(this._pw, this, 1, 0, 640, 50, "rects.rect-" + "9", 0, 750),
                     this.createGround(this._pw, this, 2, 0, 0, 750, "rects.rect-" + "1", 0, 0),
-                    this.createGround(this._pw, this, 3, 0, 0, 750, "rects.rect-" + "1", 475, 0)
+                    this.createGround(this._pw, this, 3, 0, 0, 750, "rects.rect-" + "1", 475, 0),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-1", 0, 300),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-1", 0, 300),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-2", 0, 340),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-3", 0, 380),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-4", 0, 420),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-5", 0, 460),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-1", 447, 300),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-1", 447, 300),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-2", 447, 340),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-3", 447, 380),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-4", 447, 420),
+                    this.createGround(this._pw, this, 10, 0, 30, 30, "rects.rect-5", 447, 460)
                 ];
-                city.phys.P2Space.syncDisplay(this._vcGroundsFixed[0]);
-                city.phys.P2Space.syncDisplay(this._vcGroundsFixed[1]);
-                city.phys.P2Space.syncDisplay(this._vcGroundsFixed[2]);
+                ;
+                for (var i = 0; i < this._vcGroundsFixed.length; i++) {
+                    city.phys.P2Space.syncDisplay(this._vcGroundsFixed[i]);
+                }
                 /// 玩家
-                this._pbPlayer = this.createPlayer(this._pw, this, 0, "bear_png", 200, 750);
+                this._pbPlayer = this.createPlayer(this._pw, this, 0, "bear_png", 200, 500);
                 //鼠标点击跳跃
                 this.stage.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchProcess, this, false);
             };
@@ -235,3 +248,4 @@ var game;
         GameCore.prototype.__class__ = "game.jumper.GameCore";
     })(jumper = game.jumper || (game.jumper = {}));
 })(game || (game = {}));
+//# sourceMappingURL=GameCore.js.map
